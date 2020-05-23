@@ -17,6 +17,9 @@ class Cours(models.Model):
         verbose_name = "Cours"
         verbose_name_plural = "Cours"
         
+    def __str__(self):
+        return self.date
+        
 class Actualite(models.Model):
     nom = models.CharField(max_length=255)
     texte = models.TextField()
