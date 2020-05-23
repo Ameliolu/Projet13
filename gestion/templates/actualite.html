@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<header>
+    <img src="{% static 'img/as_theatre.png' %}" alt="" >
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <div class="page-heading">
+            <h1>Notre fil d'actualités</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+</header>
+
+<section>
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            {% for elt in actualites %}
+                <div class="fiche">
+                    <h2 class="fiche-titre">
+                        {{ elt.nom }}
+                    </h2>
+                    <img src="{{ elt.image.url }}"/>
+                    <h3 class="fiche-contenu">
+                        {{ elt.texte|linebreaks }}
+                    </h3>   
+                    <p class="fiche-date">Publié le {{ elt.date }}</p>
+                </div>
+                <hr>
+            {% empty %}
+                <div class="fiche">
+                    <h2>Aucune actualité n'a encore été publiée.</h2>
+                    <p>Mais restez à l'écoute, cela devrait arriver très vite !</p>
+                </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+</section>
+
+{% endblock %}

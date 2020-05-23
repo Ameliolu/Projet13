@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- Le header qui résume le concept du site -->
+<header>
+    <img src="{% static 'img/as_theatre.png' %}" alt="" >
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <div class="page-heading">
+            <h1>Nous sommes la <br> <i>Section d'Art Dramatique</i></h1>
+            <span class="subheading">Contrairement à ce que notre acronyme pourrait laisser penser, nous sommes très joyeux.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+</header>
+
+<!-- La section pour se présenter -->
+<section id="quisommesnous">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mx-auto text-center">
+                <h2>Qui sommes nous ?</h2>
+                <p>Comme notre nom le laisse deviner, nous sommes une association non lucrative théâtrale. <br>
+                Se définissant comme inclusive, l'association se veut ouverte sur :</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-4 text-center">
+                <p><i>Toutes les traditions</i></p>
+                <img src="{% static 'img/traditions.jpg' %}" height="225">
+            </div>
+       
+            <div class="col-lg-4 text-center">
+                <p><i>Toutes les modernités</i></p>
+                <img src="{% static 'img/modernites.jpg' %}" height="225">
+            </div>
+            
+            <div class="col-lg-4 text-center">
+                <p><i>Tous les publics</i></p>
+                <img src="{% static 'img/autism.jpg' %}" height="225">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- La section pour le programme -->
+<section id="programme">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mx-auto text-center">
+                <h2>Cela vous donne envie de nous rencontrer ?</h2>
+    
+                {% for elt in cours %}
+                <p>Le prochain cours aura lieu le {{ elt.date }} à {{ elt.heure }} au {{ elt.adresse }}.</p>
+                <p>Le programme portera sur : <b>{{ elt.texte_etudie }}</b>.
+                {% empty %}
+                <p>Aucun cours n'est actuellement prévu. N'hésitez cependant pas à nous contacter !</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- La section pour le fil d'actualités -->
+<section id="accès_fil">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mx-auto text-center">
+                <h2>Envie de partager avec nous ?</h2>
+                <a href="{% url 'actualite' %}">Consulter notre fil d'actualité en cliquant ici !</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- La section pour la newsletter -->
+<section id="inscription_news">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mx-auto text-center">
+                <h2>Envie de nous écouter ?</h2>
+                <p>Inscrivez-vous à notre Newsletter !</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-4 mx-auto text-center">
+                <form action="{% url 'accueil'%}" method="POST">
+                {% csrf_token %}
+                <div class="input-group">
+                <input type="email" class="form-control" placeholder="S'inscrire" name="email" required>
+                <button type="submit" class="btn btn-primary">S'inscrire</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Message succès à l'inscription -->
+<div class="modal fade" id="newsletterModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="newsletterModalLabel">Merci !</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>Si ce n'était pas déjà le cas, vous êtes maintenant inscrit à notre newsletter.</p>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% if modal == True %}
+    <script>
+        $(document).ready(function() {
+            $('#newsletterModal').modal('show');
+        });
+    </script>
+{% endif %}
+
+{% endblock %}
