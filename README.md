@@ -1,5 +1,7 @@
 # Projet13
-Ce projet permet de créer un site web destiné idéalement à une association. Ce projet inclut notamment les fonctionalités suivantes :
+Ce projet permet de créer un site web destiné idéalement à une association. Le code de ce projet est entièrement libre de droit.
+
+Ce projet inclut notamment les fonctionalités suivantes :
 - affichage des prochains cours et des actualités en fonction des informations en base de données ;
 - interface d'administration personnalisé ;
 - envoi de courriels depuis l'interface d'administration ;
