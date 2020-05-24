@@ -1,11 +1,11 @@
 # Projet13
-Ce projet permet de créer un site web destiné idéalement à une association. Le code de ce projet est entièrement libre de droits.
+Ce projet permet de créer un site web destiné idéalement à une association. Le code de ce projet est entièrement libre de droits. En revanche, les ressources utilisées, notamment celles présente dans les dossiers "static" ont leurs propres régimes de droits.
 
 Ce projet inclut notamment les fonctionalités suivantes :
 - affichage des prochains cours et des actualités en fonction des informations en base de données ;
 - interface d'administration personnalisé ;
 - envoi de courriels depuis l'interface d'administration ;
-- inscription depuis le à la liste de diffusion d'une Newsletter.
+- inscription depuis le site à la liste de diffusion d'une Newsletter.
 
 Pour utiliser ce site, vous devez suivre les étapes ci-après :
 1) Installez les librairies nécessaires :
