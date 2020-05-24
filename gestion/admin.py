@@ -32,7 +32,7 @@ class CustomUserAdmin(admin.ModelAdmin):
     list_display = ['username', 'first_name', 'last_name', 'email']
     list_filter = ['username', 'last_name', 'email']
 
-admin.site.register(CustomUser)
+admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Actualite, ActualiteAdmin)
 admin.site.register(Cours, CoursAdmin)
 
