@@ -9,7 +9,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 from .forms import CourrielForm
 # from site_sad.settings import EXPEDITEUR
 from site_sad.settings import EMAIL_HOST_USER
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.core.mail import send_mail
 
 from .models import CustomUser, Actualite, Cours
@@ -92,7 +93,7 @@ def my_custom_view(request):
         )
         
         # send_mass_mail((message))
-        
+        return redirect(reverse('/admin')
         
     form = CourrielForm()
     return render(request, 'courriel.html', {'form': form})
