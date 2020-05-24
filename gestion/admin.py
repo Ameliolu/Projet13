@@ -26,6 +26,11 @@ class ActualiteAdmin(admin.ModelAdmin):
     search_fields = ['nom', 'texte', 'date']
     list_display = ['nom', 'texte', 'date']
     list_filter = ['nom', 'date']
+    
+class CustomUserAdmin(admin.ModelAdmin):
+    search_fields = ['username', 'first_name', 'last_name', 'email']
+    list_display = ['username', 'first_name', 'last_name', 'email']
+    list_filter = ['username', 'last_name', 'email']
 
 admin.site.register(CustomUser)
 admin.site.register(Actualite, ActualiteAdmin)
