@@ -7,7 +7,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 #Import nécessaire à la vue pour l'envoi de mails
 from .forms import CourrielForm
-from site_sad.settings import EXPEDITEUR
+# from site_sad.settings import EXPEDITEUR
+from site_sad.settings import EMAIL_HOST_USER
 from django.shortcuts import render
 from django.core.mail import send_mail
 
@@ -84,7 +85,8 @@ def my_custom_view(request):
             # 'Here is the message.',
             texte,
             # 'your.application@gmail.com',
-            EXPEDITEUR,
+            # EXPEDITEUR,
+            EMAIL_HOST_USER,
             # ['to@mail.com']
             liste_diffusion
         )
