@@ -90,7 +90,7 @@ def my_custom_view(request):
                 liste_diffusion
             )
 
-            return redirect(reverse('/admin'))
+            return redirect(reverse('admin:index'))
         
     form = CourrielForm()
     return render(request, 'courriel.html', {'form': form})
