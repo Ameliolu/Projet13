@@ -13,9 +13,25 @@ from django.core.mail import send_mail
 
 from .models import CustomUser, Actualite, Cours
 
+
+# Partie pour personaliser l'interface
+admin.site.site_header = "Gestion de la S.A.D"
+
+class CoursAdmin(admin.ModelAdmin):
+    search_fields = ['date', 'adresse', 'texte_etudie']
+    list_display = ['date', 'heure', 'adresse']
+    list_filter = ['date', 'adresse']
+    
+class ActualiteAdmin(admin.ModelAdmin):
+    search_fields = ['nom', 'texte', 'date']
+    list_display = ['nom', 'texte', 'date']
+    list_filter = ['nom', 'date']
+
 admin.site.register(CustomUser)
-admin.site.register(Actualite)
-admin.site.register(Cours)
+admin.site.register(Actualite, ActualiteAdmin)
+admin.site.register(Cours, CoursAdmin)
+
+    
 
 # Partie pour afficher dans la liste d'administration une url
 class Courriels(models.Model):

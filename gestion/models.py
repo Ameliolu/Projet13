@@ -16,9 +16,7 @@ class Cours(models.Model):
     class Meta:
         verbose_name = "Cours"
         verbose_name_plural = "Cours"
-        
-    def __str__(self):
-        return self.date
+
         
 class Actualite(models.Model):
     nom = models.CharField(max_length=255)
