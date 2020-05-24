@@ -78,22 +78,19 @@ def my_custom_view(request):
                         liste_diffusion.append(elt.email)
                         
             # Partie pour l'envoi des mails
+            send_mail(
+                # 'Subject here',
+                titre,
+                # 'Here is the message.',
+                texte,
+                # 'your.application@gmail.com',
+                # EXPEDITEUR,
+                EMAIL_HOST_USER,
+                # ['to@mail.com']
+                liste_diffusion
+            )
 
-        
-        send_mail(
-            # 'Subject here',
-            titre,
-            # 'Here is the message.',
-            texte,
-            # 'your.application@gmail.com',
-            # EXPEDITEUR,
-            EMAIL_HOST_USER,
-            # ['to@mail.com']
-            liste_diffusion
-        )
-        
-        # send_mass_mail((message))
-        return redirect(reverse('/admin')
+            return redirect(reverse('/admin'))
         
     form = CourrielForm()
     return render(request, 'courriel.html', {'form': form})
