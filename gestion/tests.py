@@ -1,16 +1,18 @@
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
 
 from unittest.mock import patch
 
 from .views import *
 from .models import Cours, Actualite, CustomUser
-from .admin import Courriels
+from .admin import *
+
+from .forms import CourrielForm
 
 from django.contrib.admin.sites import AdminSite
 from django.contrib.admin.options import ModelAdmin
 from django.db import models
-# from gestion.models import MyModel
-# from gestion.admin import MyModelAdmin
+from django.utils import timezone
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 class TestPublicView(TestCase):
     """catégorie de tests sur l'affichage des vues"""
@@ -61,3 +63,55 @@ class TestInscriptionNews(TestCase):
         """vérification de l'inscription à la newsletter si l'email existe et est inscrit"""
         response = self.client.post('/', {'email': 'test3@mail.com'})
         self.assertTrue(CustomUser.objects.filter(email="test3@mail.com").filter(newsletter="o").exists())
+        
+class MockSuperUser:
+    def has_perm(self, perm):
+        return True
+
+request_factory = RequestFactory()
+request = request_factory.get('/admin')
+request.user = MockSuperUser()
+newPhoto = SimpleUploadedFile(name='test_image.jpg', content=open("gestion/static/img/traditions.jpg", 'rb').read(), content_type='image/jpeg')
+
+        
+class TestMyAdminCours(TestCase):
+    """catégorie de test sur la partie administration, model Cours"""
+    
+    def setUp(self):
+        self.cours = Cours.objects.create(date=timezone.now(), adresse = "La rue.", texte_etudie = "Des mots.", heure="14:30:00")
+        self.site = AdminSite()
+        self.admin = ModelAdmin(Cours, self.site)
+        
+    def test_delete_Cours(self):
+        obj = Cours.objects.get(pk=1)
+        self.admin.delete_model(request, obj)
+
+        deleted = Cours.objects.filter(pk=1).first()
+        self.assertEqual(deleted, None)
+        
+    def test_fiels_Cours(self):
+        ma = ModelAdmin(Cours, self.site)
+        self.assertEqual(list(ma.get_form(request).base_fields), ['date', 'heure', 'adresse', 'texte_etudie'])
+        self.assertEqual(list(ma.get_fields(request)), ['date', 'heure', 'adresse', 'texte_etudie'])
+        self.assertEqual(list(ma.get_fields(request, self.cours)), ['date', 'heure', 'adresse', 'texte_etudie'])
+    
+class TestMyAdminActualite(TestCase):
+    """catégorie de test sur la partie administration, model Cours"""
+    
+    def setUp(self):
+        self.actualite = Actualite.objects.create(nom="La première", texte="Du latin", image=newPhoto, date=timezone.now())
+        self.site = AdminSite()
+        self.admin = ModelAdmin(Actualite, self.site)
+        
+    def test_delete_Actualite(self):
+        obj = Actualite.objects.get(pk=1)
+        self.admin.delete_model(request, obj)
+
+        deleted = Actualite.objects.filter(pk=1).first()
+        self.assertEqual(deleted, None)
+        
+    def test_fiels_Actualite(self):
+        ma = ModelAdmin(Actualite, self.site)
+        self.assertEqual(list(ma.get_form(request).base_fields), ['nom', 'texte', 'image', 'date'])
+        self.assertEqual(list(ma.get_fields(request)), ['nom', 'texte', 'image', 'date'])
+        self.assertEqual(list(ma.get_fields(request, self.actualite)), ['nom', 'texte', 'image', 'date'])
