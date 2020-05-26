@@ -5,6 +5,7 @@ Ce projet inclut notamment les fonctionalités suivantes :
 - affichage des prochains cours et des actualités en fonction des informations en base de données ;
 - interface d'administration personnalisé ;
 - envoi de courriels depuis l'interface d'administration ;
+- export d'un rapport au format pdf ;
 - inscription depuis le site à la liste de diffusion d'une Newsletter.
 
 Pour utiliser ce site, vous devez suivre les étapes ci-après :
