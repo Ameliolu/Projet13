@@ -22,7 +22,7 @@ def home(request):
     - on trie les dates obtenus par ordre ascendant
     - on récupère la première date
     """
-    prochaine_date = Cours.objects.filter(date__gt=timezone.now()).order_by('date')[:1]
+    prochaine_date = Cours.objects.filter(date__gte=timezone.now()).order_by('date')[:1]
     return render(
         request,
         'accueil.html',
