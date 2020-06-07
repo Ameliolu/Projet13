@@ -134,9 +134,9 @@ def my_custom_view2(request):
     
     p.drawString(60, 740, "Cours")
     p.line(40,730,140,730)
-    p.drawString(40, 715, "Nombre de cours programmés à venir le prochain mois : " + str(Cours.objects.filter(date__gte=timezone.now() + timedelta(weeks=4)).count()))
-    p.drawString(40, 700, "Nombre de cours programmés à venir la prochaine année : " + str(Cours.objects.filter(date__gte=timezone.now() + timedelta(weeks=52)).count()))
-    p.drawString(40, 685, "Nombre de cours effectués lors de la dernière année : " + str(Cours.objects.filter(date__lt=timezone.now() + timedelta(weeks=52)).count()))
+    p.drawString(40, 715, "Nombre de cours programmés à venir le prochain mois : " + str(Cours.objects.filter(date__gte=timezone.now()).filter(date__lt=timezone.now() + timedelta(weeks=4)).count()))
+    p.drawString(40, 700, "Nombre de cours programmés à venir la prochaine année : " + str(Cours.objects.filter(date__gte=timezone.now()).filter(date__lt=timezone.now() + timedelta(weeks=52)).count()))
+    p.drawString(40, 685, "Nombre de cours effectués lors de la dernière année : " + str(Cours.objects.filter(date__lt=timezone.now()).filter(date__gt=timezone.now() - timedelta(weeks=52)).count()))
     p.drawString(40, 670, "Nombre de cours effectués toutes périodes confondues : " + str(Cours.objects.filter(date__lt=timezone.now()).count()))
     
     p.drawString(60, 610, "Membres")
@@ -144,7 +144,7 @@ def my_custom_view2(request):
     p.drawString(40, 585, "Nombre de membres toutes périodes confondues : " + str(CustomUser.objects.filter(membre="o").count()))
     p.drawString(40, 570, "Nombre de membres actuels : " + str(CustomUser.objects.filter(is_active=True, membre="o").count()))
     p.drawString(40, 555, "Nombre de membres actuels inscrits à la newsletter : " + str(CustomUser.objects.filter(membre="o", newsletter="o").count()))
-    p.drawString(40, 540, "Nombre d'inscrits uniquement à la newsletter : " + str(CustomUser.objects.filter(newsletter="n").count()))
+    p.drawString(40, 540, "Nombre d'inscrits uniquement à la newsletter : " + str(CustomUser.objects.filter(username__icontains="Inscrit").count()))
     
     p.drawString(60, 480, "Actualités")
     p.line(40, 470, 140, 470)
